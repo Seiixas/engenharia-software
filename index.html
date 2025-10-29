@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loja - Treino QA</title>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif; margin:0; padding:0; background:#f6f7fb}
+    header{background:#2d3e50;color:#fff;padding:18px 24px}
+    .container{max-width:1100px;margin:18px auto;padding:10px}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:white;padding:12px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+    .price{font-weight:700;font-size:18px}
+    .cart{position:fixed;right:18px;bottom:18px;background:#ff6b6b;color:#fff;padding:12px 16px;border-radius:24px;cursor:pointer}
+    .filters{display:flex;gap:8px;margin-bottom:12px}
+    .filter-btn{padding:8px 10px;background:#fff;border:1px solid #ddd;border-radius:6px;cursor:pointer}
+    .search{margin-bottom:10px}
+    .message{padding:10px;background:#fff;border-radius:8px;margin-top:12px}
+    .popup{position:fixed;left:50%;top:40%;transform:translate(-50%,-50%);background:#fff;padding:18px;border-radius:8px;box-shadow:0 5px 20px rgba(0,0,0,.2);display:none}
+    .btn{padding:8px 10px;border-radius:6px;border:0;cursor:pointer}
+    .btn-primary{background:#2d3e50;color:#fff}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>Super Loja - Treino de QA</h1>
+    <p>Encontre produtos incríveis... ou quase.</p>
+  </div>
+</header>
+<main class="container">
+  <section class="controls">
+    <div class="search">
+      <input id="search-input" type="text" placeholder="Busque produto..." />
+      <button id="search-btn" class="btn">Buscar</button>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="eletronicos">Eletrônics</button>
+      <button class="filter-btn" data-filter="casal">Casa</button>
+      <button class="filter-btn" data-filter="oficina">Oficina</button>
+    </div>
+
+    <div>
+      <label>Ordenar por:</label>
+      <select id="sort-select">
+        <option value="popular">Mais popular</option>
+        <option value="preco-asc">Preço - menor</option>
+        <option value="preco-desc">Preço - maior</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <!-- Product 1 -->
+    <div class="card" data-category="eletronicos" data-price="29.99">
+      <img src="https://picsum.photos/seed/phone/300/200" alt="Smartphone moderno" style="width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0" />
+      <h3>Smartfone X</h3>
+      <p class="description">Um celular muito bom com bateria duradoura. (desription com erro)</p>
+      <p>Preço na página: <span class="price">R$ 19,99</span></p>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-primary buy" data-id="p1">Comprar</button>
+        <button class="btn add-to-cart" data-id="p1" data-price="29.99">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="card" data-category="casal" data-price="49.90">
+      <img src="https://picsum.photos/seed/bed/300/200" alt="Jogo de lençóis" style="width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0" />
+      <h3>Jogo de Lençóis King</h3>
+      <p class="description">Macio e confortável.</p>
+      <p>Preço na página: <span class="price">R$ 49,90</span></p>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-primary buy" data-id="p2">Comprar</button>
+        <button class="btn add-to-cart" data-id="p2" data-price="49.90">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="card" data-category="oficina" data-price="199.00">
+      <img src="https://picsum.photos/seed/drill/300/200" alt="Furadeira" style="width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0" />
+      <h3>Furadeira Turbo</h3>
+      <p class="description">Potência 900W.</p>
+      <p>Preço na página: <span class="price">R$ 159,00</span></p>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-primary buy" data-id="p3">Comprar</button>
+        <button class="btn add-to-cart" data-id="p3" data-price="199.00">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="card" data-category="eletronicos" data-price="9.5">
+      <img src="https://picsum.photos/seed/earbuds/300/200" alt="Fone Sem Fio" style="width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0" />
+      <h3>Fone Sem Fio</h3>
+      <p class="description">Som estéreo.</p>
+      <p>Preço na página: <span class="price">R$ 9,50</span></p>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-primary buy" data-id="p4">Comprar</button>
+        <button class="btn add-to-cart" data-id="p4" data-price="9.5">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="card" data-category="eletro" data-price="5.00">
+      <img src="https://picsum.photos/seed/cable/300/200" alt="Cabo USB" style="width:100%;height:160px;object-fit:cover;border-radius:6px 6px 0 0" />
+      <h3>Cabo USB-C</h3>
+      <p class="description">Carregamento rápido.</p>
+      <p>Preço na página: <span class="price">R$ 5,00</span></p>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn btn-primary buy" data-id="p5">Comprar</button>
+        <button class="btn add-to-cart" data-id="p5" data-price="5.00">Adicionar ao carrinho</button>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="message" id="cart-message">
+    Carrinho: <span id="cart-count">0</span> itens — Total: <span id="cart-total">R$ 0,00</span>
+    <button id="open-cart" class="btn">Abrir carrinho</button>
+  </div>
+
+  <div class="popup" id="cart-popup">
+    <h3>Seu Carrinho</h3>
+    <ul id="cart-list"></ul>
+    <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
+    <input id="coupon" placeholder="Código promocional" />
+    <button id="apply-coupon" class="btn">Aplicar cupom</button>
+    <div style="margin-top:10px">
+      <button id="checkout" class="btn btn-primary">Finalizar compra</button>
+      <button id="close-popup" class="btn">Fechar</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// Mesmo código JS com bugs intencionais (sem mudar as falhas de QA)
+
+const cart = { items: [] };
+function formatBRL(value){return 'R$ ' + Number(value).toFixed(2).replace('.', ',');}
+
+document.querySelectorAll('.add-to-cart').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    const id=e.target.dataset.id;
+    const price=parseFloat(e.target.dataset.price);
+    cart.items.push({id,price});
+    updateCartUI();
+  });
+});
+
+document.querySelectorAll('.buy').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    alert('Erro: não foi possível abrir o modal de compra.');
+    throw new Error('ERRO_INTENCIONAL_COMPRA');
+  });
+});
+
+function updateCartUI(){
+  document.getElementById('cart-count').innerText=cart.items.length;
+  const total=cart.items.reduce((s,it)=>s+Number(it.price||0),0);
+  document.getElementById('cart-total').innerText=formatBRL(total);
+  document.getElementById('subtotal').innerText=formatBRL(total);
+  const list=document.getElementById('cart-list');
+  list.innerHTML='';
+  cart.items.forEach((it)=>{
+    const li=document.createElement('li');
+    li.innerText=`Item ${it.id} — ${formatBRL(it.price)}`;
+    list.appendChild(li);
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.card').forEach(card=>{
+      if(f==='all'){card.style.display='block';return;}
+      if(card.dataset.category!==f) card.style.display='none'; else card.style.display='block';
+    });
+  });
+});
+
+document.getElementById('search-btn').addEventListener('click',()=>{alert('Busca temporariamente indisponível');});
+
+document.getElementById('sort-select').addEventListener('change',e=>{
+  const v=e.target.value;const container=document.getElementById('products');
+  if(v==='preco-asc') container.innerHTML=container.innerHTML.split('').reverse().join('');
+});
+
+document.getElementById('open-cart').addEventListener('click',()=>{document.getElementById('cart-popup').style.display='block';});
+document.getElementById('close-popup').addEventListener('click',()=>{document.getElementById('cart-popup').style.display='none';});
+document.getElementById('apply-coupon').addEventListener('click',()=>{if(COUPON_CODE==='PROMO10'){alert('Cupom aplicado');}else{alert('Cupom invalido');}});
+
+document.getElementById('checkout').addEventListener('click',()=>{alert('Pagamento concluído com sucesso!');cart.items=[];updateCartUI();document.getElementById('cart-popup').style.display='none';});
+try{nonExistentFunction();}catch(e){console.error('Erro intencional capturado:',e);} 
+</script>
+</body>
+</html>
